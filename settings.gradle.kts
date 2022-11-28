@@ -15,4 +15,8 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "StarWarsTask"
-include(":app")
+include(
+    ":app",
+    ":lib-generic:ui",
+    ":lib-specific:ui-theme",
+)

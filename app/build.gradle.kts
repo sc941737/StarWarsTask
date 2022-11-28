@@ -68,6 +68,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":lib-generic:ui"))
+    implementation(project(":lib-specific:ui-theme"))
     implementation(Deps.AndroidX.coreKtx)
     implementation(Deps.AndroidX.Lifecycle.lifecycleRuntime)
     implementation(Deps.AndroidX.Activity.activityCompose)

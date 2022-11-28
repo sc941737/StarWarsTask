@@ -1,4 +1,4 @@
-package com.sc941737.starwarstask.ui.theme
+package com.sc941737.lib.ui_theme
 
 import androidx.compose.ui.graphics.Color
 
