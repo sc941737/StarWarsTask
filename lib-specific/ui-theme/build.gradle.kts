@@ -21,8 +21,10 @@ android {
 }
 
 dependencies {
-    implementation(Deps.AndroidX.Compose.Ui.ui)
-    implementation(Deps.AndroidX.Compose.Ui.uiTooling)
-    implementation(Deps.AndroidX.Compose.Ui.uiToolingPreview)
-    implementation(Deps.AndroidX.Compose.Material.material)
+    api(Deps.AndroidX.Compose.Material.material)
+    api(Deps.AndroidX.Compose.Material.materialIconsCore)
+    api(Deps.AndroidX.Compose.Material.materialIconsExtended)
+    api(Deps.AndroidX.Compose.Ui.ui)
+    api(Deps.AndroidX.Compose.Ui.uiTooling)
+    api(Deps.AndroidX.Compose.Ui.uiToolingPreview)
 }

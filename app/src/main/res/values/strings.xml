@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">StarWarsTask</string>
+
+    <string name="screen_selection_title">Launch Selection</string>
+    <string name="selection_toolbar_menu_search">Search</string>
+    <string name="selection_toolbar_menu_preview">Preview</string>
+    <string name="selection_counter_crew">Crew: %d/%d</string>
+    <string name="selection_counter_passengers">Passengers: %d/%d</string>
+    <string name="selection_counter_full">STARSHIP FULL</string>
+    <string name="selection_item_name">Name: %s</string>
+    <string name="selection_item_birth_year">Birth year: %s</string>
+    <string name="selection_item_gender">Gender %s</string>
+    <string name="selection_item_btn_add_crew">+ crew member</string>
+    <string name="selection_item_btn_add_passengers">+ passenger</string>
 </resources>

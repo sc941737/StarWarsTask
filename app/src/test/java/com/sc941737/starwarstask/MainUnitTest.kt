@@ -1,5 +1,6 @@
 package com.sc941737.starwarstask
 
+import com.sc941737.starwarstask.ui.selection.transformId
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -9,9 +10,11 @@ import org.junit.Assert.*
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class ExampleUnitTest {
+class MainUnitTest {
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun `test transform id`() {
+        val testId = "https://swapi.dev/api/people/10/"
+        val testResult = transformId(testId)
+        assertEquals("10", testResult)
     }
 }

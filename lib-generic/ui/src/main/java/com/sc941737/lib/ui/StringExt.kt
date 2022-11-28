@@ -10,3 +10,5 @@ fun String.capitalize(locale: Locale = Locale.getDefault()) =
 inline fun String.ifNotEmpty(block: (String) -> Unit) {
     if (isNotEmpty()) block(this)
 }
+
+fun List<String>.filterNotEmpty() = filter { it != "" }
