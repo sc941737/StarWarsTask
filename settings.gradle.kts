@@ -19,5 +19,6 @@ include(
     ":app",
     ":lib-generic:network",
     ":lib-generic:ui",
+    ":lib-specific:starwars-api",
     ":lib-specific:ui-theme",
 )

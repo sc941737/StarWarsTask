@@ -70,6 +70,7 @@ android {
 dependencies {
     implementation(project(":lib-generic:ui"))
     implementation(project(":lib-generic:network"))
+    implementation(project(":lib-specific:starwars-api"))
     implementation(project(":lib-specific:ui-theme"))
     implementation(Deps.AndroidX.coreKtx)
     implementation(Deps.AndroidX.Lifecycle.lifecycleRuntime)
