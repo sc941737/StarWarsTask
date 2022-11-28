@@ -2,6 +2,7 @@ package com.sc941737.starwarstask
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sc941737.lib.error.ErrorTracker
 import com.sc941737.lib.starwars_api.PeopleRepository
 import com.sc941737.lib.starwars_api.StarshipRepository
 import com.sc941737.lib.ui.launch
@@ -20,7 +21,11 @@ enum class TravelType { CREW, PASSENGER }
 class MainViewModel(
     private val peopleRepository: PeopleRepository,
     private val starshipRepository: StarshipRepository,
+    errorTracker: ErrorTracker,
 ) : ViewModel() {
+    val peopleErrorEvents = errorTracker.filterByTag(PeopleRepository.TAG)
+    val starshipErrorEvents = errorTracker.filterByTag(StarshipRepository.TAG)
+
     private val people = peopleRepository.people
     val starship = starshipRepository.currentStarship
     val selectedPeople = starshipRepository.selectedPeople

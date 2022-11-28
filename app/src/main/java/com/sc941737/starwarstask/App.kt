@@ -1,6 +1,7 @@
 package com.sc941737.starwarstask
 
 import android.app.Application
+import com.sc941737.lib.error.di.errorModule
 import com.sc941737.lib.network.networkModule
 import com.sc941737.lib.starwars_api.di.apiModule
 import com.sc941737.starwarstask.di.appModule
@@ -12,7 +13,7 @@ class App : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@App)
-            modules(appModule, networkModule, apiModule)
+            modules(appModule, errorModule, networkModule, apiModule)
         }
     }
 }

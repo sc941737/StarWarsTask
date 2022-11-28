@@ -13,6 +13,7 @@ android {
 }
 
 dependencies {
+    api(Deps.AndroidX.Activity.activityKtx)
     api(Deps.AndroidX.Lifecycle.lifecycleViewmodelKtx)
     api(Deps.JetBrains.KotlinX.Coroutines.kotlinxCoroutinesCore)
     api(Deps.JetBrains.KotlinX.Coroutines.kotlinxCoroutinesAndroid)

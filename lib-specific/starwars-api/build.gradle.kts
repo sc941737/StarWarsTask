@@ -16,6 +16,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":lib-generic:error"))
     implementation(project(":lib-generic:network"))
     implementation(Deps.Koin.android)
     testImplementation(Deps.JetBrains.Kotlin.kotlinTestJunit)

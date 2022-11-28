@@ -1,11 +1,16 @@
 package com.sc941737.lib.starwars_api
 
+import com.sc941737.lib.error.ErrorEvent
+import com.sc941737.lib.error.ErrorTracker
 import com.sc941737.lib.network.NetworkHelper
 import com.sc941737.lib.network.ResultWrapper
+import com.sc941737.lib.starwars_api.remote.Person
 import com.sc941737.lib.starwars_api.remote.StarWarsApi
 import com.sc941737.lib.starwars_api.remote.Starship
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 
 data class SelectedPeople(
@@ -18,6 +23,10 @@ data class SelectedPeople(
 }
 
 interface StarshipRepository {
+    companion object {
+        const val TAG = "StarshipRepository"
+    }
+
     val currentStarship: StateFlow<Starship?>
     val selectedPeople: StateFlow<SelectedPeople>
     val isStarshipFull: Flow<Boolean>
@@ -35,6 +44,7 @@ interface StarshipRepository {
 class StarshipRepositoryImpl(
     private val networkHelper: NetworkHelper,
     private val api: StarWarsApi,
+    private val errorTracker: ErrorTracker,
 ) : StarshipRepository, ResultUnwrapper {
     private val _currentStarship = MutableStateFlow<Starship?>(null)
     override val currentStarship: StateFlow<Starship?> = _currentStarship
@@ -67,8 +77,11 @@ class StarshipRepositoryImpl(
 
     override suspend fun fetchStarship(id: String) = executeRequest(
         block = { getStarship(id) },
-        onSuccess = { _currentStarship.update { it } },
-        onError = {},
+        onSuccess = { starship -> _currentStarship.update { starship } },
+        onError = {
+            val event = ErrorEvent(StarshipRepository.TAG, it)
+            errorTracker.reportError(event)
+        },
     )
 
     override suspend fun getStarship(id: String) = networkHelper.safeApiCall {

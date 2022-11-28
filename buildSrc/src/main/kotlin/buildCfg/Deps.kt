@@ -71,6 +71,8 @@ object Deps {
             private const val version = "2.5.1"
             const val lifecycleRuntime = "androidx.lifecycle:lifecycle-runtime:$version"
             const val lifecycleCompiler = "androidx.lifecycle:lifecycle-compiler:$version"
+            // Process
+            const val lifecycleProcess = "androidx.lifecycle:lifecycle-process:$version"
             // ViewModel
             const val lifecycleViewmodelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
             const val lifecycleViewmodelCompose = "androidx.lifecycle:lifecycle-viewmodel-compose:$version"

@@ -76,17 +76,15 @@ android {
 }
 
 dependencies {
-    implementation(project(":lib-generic:ui"))
+    implementation(project(":lib-generic:error"))
     implementation(project(":lib-generic:network"))
+    implementation(project(":lib-generic:ui"))
     implementation(project(":lib-specific:starwars-api"))
     implementation(project(":lib-specific:ui-theme"))
     implementation(Deps.AndroidX.coreKtx)
+    implementation(Deps.AndroidX.Lifecycle.lifecycleProcess)
     implementation(Deps.AndroidX.Lifecycle.lifecycleRuntime)
     implementation(Deps.AndroidX.Activity.activityCompose)
-    implementation(Deps.AndroidX.Compose.Ui.ui)
-    implementation(Deps.AndroidX.Compose.Ui.uiTooling)
-    implementation(Deps.AndroidX.Compose.Ui.uiToolingPreview)
-    implementation(Deps.AndroidX.Compose.Material.material)
     implementation(Deps.Koin.android)
     implementation(Deps.Koin.androidCompose)
     implementation(Deps.Raamcosta.ComposeDestinations.core)

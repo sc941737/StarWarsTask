@@ -13,9 +13,9 @@ val apiModule = module {
         StarWarsApiImpl(get())
     }
     single<PeopleRepository> {
-        PeopleRepositoryImpl(get(), get())
+        PeopleRepositoryImpl(get(), get(), get())
     }
     single<StarshipRepository> {
-        StarshipRepositoryImpl(get(), get())
+        StarshipRepositoryImpl(get(), get(), get())
     }
 }

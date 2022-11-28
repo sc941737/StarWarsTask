@@ -17,6 +17,7 @@ dependencyResolutionManagement {
 rootProject.name = "StarWarsTask"
 include(
     ":app",
+    ":lib-generic:error",
     ":lib-generic:network",
     ":lib-generic:ui",
     ":lib-specific:starwars-api",
