@@ -1,19 +1,19 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("com.android.application") version "7.3.1" apply false
-    id("com.android.library") version "7.3.1" apply false
-    id("org.jetbrains.kotlin.android") version "1.7.10" apply false
-    kotlin("jvm") version "1.7.10"
+    id(GradlePlugin.ANDROID_APPLICATION) version Versions.ANDROID_PLUGIN apply false
+    id(GradlePlugin.ANDROID_LIBRARY) version Versions.ANDROID_PLUGIN apply false
+    id(GradlePlugin.KOTLIN_ANDROID) version Versions.KOTLIN apply false
+    id(GradlePlugin.KOTLIN_JVM) version Versions.KOTLIN
 }
 dependencies {
-    implementation(kotlin("stdlib-jdk8"))
+    implementation(Deps.Kotlin.kotlinStdlib8)
 }
 val compileKotlin: KotlinCompile by tasks
 compileKotlin.kotlinOptions {
-    jvmTarget = "1.8"
+    jvmTarget = Versions.JAVA_VERSION_STR
 }
 val compileTestKotlin: KotlinCompile by tasks
 compileTestKotlin.kotlinOptions {
-    jvmTarget = "1.8"
+    jvmTarget = Versions.JAVA_VERSION_STR
 }

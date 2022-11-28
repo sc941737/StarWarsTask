@@ -1,18 +1,20 @@
 @file:Suppress("UnstableApiUsage")
 
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    id(GradlePlugin.ANDROID_APPLICATION)
+    id(GradlePlugin.KOTLIN_ANDROID)
 }
 
 android {
     namespace = "com.sc941737.starwarstask"
-    compileSdk = 33
+    compileSdk = AndroidConfig.COMPILE_SDK_VERSION
 
     defaultConfig {
         applicationId = "com.sc941737.starwarstask"
-        minSdk = 26
-        targetSdk = 33
+        minSdk = AndroidConfig.MIN_SDK_VERSION
+        targetSdk = AndroidConfig.TARGET_SDK_VERSION
+        buildToolsVersion = AndroidConfig.BUILD_TOOLS_VERSION
+        // todo: This should normally be extracted to separate file for CI scripts
         versionCode = 1
         versionName = "1.0"
 
@@ -46,17 +48,17 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = Versions.JAVA_VERSION
+        targetCompatibility = Versions.JAVA_VERSION
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = Versions.JAVA_VERSION_STR
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.3.1"
+        kotlinCompilerExtensionVersion = Deps.AndroidX.Compose.version
     }
     packagingOptions {
         resources {
@@ -66,17 +68,16 @@ android {
 }
 
 dependencies {
-    val compose_ui_version = "1.3.1"
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
-    implementation("androidx.activity:activity-compose:1.3.1")
-    implementation("androidx.compose.ui:ui:$compose_ui_version")
-    implementation("androidx.compose.ui:ui-tooling-preview:$compose_ui_version")
-    implementation("androidx.compose.material:material:1.1.1")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:$compose_ui_version")
-    debugImplementation("androidx.compose.ui:ui-tooling:$compose_ui_version")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:$compose_ui_version")
+    implementation(Deps.AndroidX.coreKtx)
+    implementation(Deps.AndroidX.Lifecycle.lifecycleRuntime)
+    implementation(Deps.AndroidX.Activity.activityCompose)
+    implementation(Deps.AndroidX.Compose.Ui.ui)
+    implementation(Deps.AndroidX.Compose.Ui.uiTooling)
+    implementation(Deps.AndroidX.Compose.Ui.uiToolingPreview)
+    implementation(Deps.AndroidX.Compose.Material.material)
+    testImplementation(Deps.Test.JUnit.junit4)
+    testImplementation(Deps.Test.Ext.junitKtx)
+    androidTestImplementation(Deps.Test.Espresso.espressoCore)
+    androidTestImplementation(Deps.AndroidX.Compose.Ui.uiTestJunit4)
+    debugImplementation(Deps.AndroidX.Compose.Ui.uiTestManifest)
 }
