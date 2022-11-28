@@ -78,6 +78,8 @@ dependencies {
     implementation(Deps.AndroidX.Compose.Ui.uiTooling)
     implementation(Deps.AndroidX.Compose.Ui.uiToolingPreview)
     implementation(Deps.AndroidX.Compose.Material.material)
+    implementation(Deps.Koin.android)
+    implementation(Deps.Koin.androidCompose)
     testImplementation(Deps.Test.JUnit.junit4)
     testImplementation(Deps.Test.Ext.junitKtx)
     androidTestImplementation(Deps.Test.Espresso.espressoCore)

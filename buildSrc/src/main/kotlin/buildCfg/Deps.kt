@@ -141,6 +141,13 @@ object Deps {
         }
     } // End of Test
 
+    object Koin {
+        private const val version = "3.3.0"
+        const val android = "io.insert-koin:koin-android:$version"
+        const val androidCompose = "io.insert-koin:koin-androidx-compose:$version"
+        const val junit4 = "io.insert-koin:koin-test-junit4:$version"
+    }
+
     object Ktor {
         private const val version = "2.1.3"
         const val ktorClientAndroid = "io.ktor:ktor-client-android:$version"

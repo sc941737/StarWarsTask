@@ -20,4 +20,5 @@ dependencies {
     api(Deps.Ktor.ktorClientSerializationJson)
     api(Deps.JetBrains.KotlinX.Serialization.serializationJson) // Serializable
     implementation(Deps.Ktor.ktorClientLogging)
+    implementation(Deps.Koin.android)
 }

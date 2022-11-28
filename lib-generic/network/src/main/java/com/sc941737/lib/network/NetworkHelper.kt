@@ -1,19 +1,11 @@
 package com.sc941737.lib.network
 
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.android.Android
 import io.ktor.client.plugins.ClientRequestException
 import io.ktor.client.plugins.RedirectResponseException
 import io.ktor.client.plugins.ServerResponseException
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.client.plugins.logging.LogLevel
-import io.ktor.client.plugins.logging.Logging
-import io.ktor.client.plugins.resources.Resources
-import io.ktor.http.ContentType.Application.Json
-import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.json.Json
 
 interface ResultError
 sealed class ResultWrapper<out T> {
@@ -25,20 +17,7 @@ sealed class ResultWrapper<out T> {
 }
 
 class NetworkHelper(
-    private val client: HttpClient = HttpClient(Android) { // todo: Implement DI
-        install(Resources)
-        install(Logging) {
-            level = LogLevel.ALL
-        }
-        install(ContentNegotiation) {
-            json(
-                json = Json {
-                    ignoreUnknownKeys = true
-                },
-                contentType = Json,
-            )
-        }
-    },
+    private val client: HttpClient,
     private val ioDispatcher: CoroutineDispatcher,
 ) {
     suspend fun <T> apiCall(block: suspend HttpClient.() -> T): T = withContext(ioDispatcher) {
