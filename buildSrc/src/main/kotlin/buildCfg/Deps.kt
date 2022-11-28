@@ -158,4 +158,12 @@ object Deps {
         const val ktorClientSerialization = "io.ktor:ktor-client-serialization:$version"
         const val ktorClientSerializationJson = "io.ktor:ktor-serialization-kotlinx-json:$version"
     }
+
+    object Raamcosta {
+        object ComposeDestinations {
+            const val version = "1.7.27-beta"
+            const val core = "io.github.raamcosta.compose-destinations:core:$version"
+            const val ksp = "io.github.raamcosta.compose-destinations:ksp:$version"
+        }
+    }
 } // End of Deps

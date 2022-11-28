@@ -3,6 +3,7 @@
 plugins {
     id(GradlePlugin.ANDROID_APPLICATION)
     id(GradlePlugin.KOTLIN_ANDROID)
+    id(GradlePlugin.KSP) version Versions.KSP
 }
 
 android {
@@ -65,6 +66,13 @@ android {
             excludes.add("/META-INF/{AL2.0,LGPL2.1}")
         }
     }
+    applicationVariants.all {
+        kotlin.sourceSets {
+            getByName(name) {
+                kotlin.srcDir("build/generated/ksp/$name/kotlin")
+            }
+        }
+    }
 }
 
 dependencies {
@@ -81,6 +89,8 @@ dependencies {
     implementation(Deps.AndroidX.Compose.Material.material)
     implementation(Deps.Koin.android)
     implementation(Deps.Koin.androidCompose)
+    implementation(Deps.Raamcosta.ComposeDestinations.core)
+    ksp(Deps.Raamcosta.ComposeDestinations.ksp)
     testImplementation(Deps.Test.JUnit.junit4)
     testImplementation(Deps.Test.Ext.junitKtx)
     androidTestImplementation(Deps.Test.Espresso.espressoCore)
