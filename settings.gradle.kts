@@ -17,6 +17,7 @@ dependencyResolutionManagement {
 rootProject.name = "StarWarsTask"
 include(
     ":app",
+    ":lib-generic:network",
     ":lib-generic:ui",
     ":lib-specific:ui-theme",
 )

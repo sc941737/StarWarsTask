@@ -7,7 +7,7 @@ plugins {
     id(GradlePlugin.KOTLIN_JVM) version Versions.KOTLIN
 }
 dependencies {
-    implementation(Deps.Kotlin.kotlinStdlib8)
+    implementation(Deps.JetBrains.Kotlin.kotlinStdlib8)
 }
 val compileKotlin: KotlinCompile by tasks
 compileKotlin.kotlinOptions {

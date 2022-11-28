@@ -77,31 +77,43 @@ object Deps {
         }
     } // End of AndroidX
 
-    object Kotlin {
-        // CHANGELOG: https://kotlinlang.org/docs/releases.html#release-details
-        //            https://github.com/JetBrains/kotlin/releases
-        const val version = Versions.KOTLIN
-        const val kotlinStdlib = "org.jetbrains.kotlin:kotlin-stdlib:$version"
-        const val kotlinStdlib8 = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version"
-        const val kotlinTestJunit = "org.jetbrains.kotlin:kotlin-test-junit:$version"
-        const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
-    }
+    object JetBrains {
+        object Kotlin {
+            // CHANGELOG: https://kotlinlang.org/docs/releases.html#release-details
+            //            https://github.com/JetBrains/kotlin/releases
+            const val version = Versions.KOTLIN
+            const val kotlinStdlib = "org.jetbrains.kotlin:kotlin-stdlib:$version"
+            const val kotlinStdlib8 = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version"
+            const val kotlinTestJunit = "org.jetbrains.kotlin:kotlin-test-junit:$version"
+            const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
 
-    object KotlinX {
-        object Collections {
-            // List of libraries providing immutable collections: https://www.jishuwen.com/d/28FX
-            const val kotlinxCollectionsImmutable = "org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.2"
-            const val kotlinxCollectionsImmutableJvm = "org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.3.2"
         }
-        object Coroutines {
-            // CHANGELOG: https://github.com/Kotlin/kotlinx.coroutines/blob/master/CHANGES.md
-            // MAVEN:     https://mvnrepository.com/artifact/org.jetbrains.kotlinx/
-            //            https://search.maven.org/search?q=g:org.jetbrains.kotlinx%20AND%20a:kotlinx-coroutines*
-            private const val version = "1.6.4"
-            const val kotlinxCoroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
-            const val kotlinxCoroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
+
+        object KotlinX {
+
+
+            object Collections {
+                private const val version = "0.3.2"
+                const val kotlinxCollectionsImmutable = "org.jetbrains.kotlinx:kotlinx-collections-immutable:$version"
+                const val kotlinxCollectionsImmutableJvm =
+                    "org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:$version"
+            }
+
+            object Coroutines {
+                // CHANGELOG: https://github.com/Kotlin/kotlinx.coroutines/blob/master/CHANGES.md
+                // MAVEN:     https://mvnrepository.com/artifact/org.jetbrains.kotlinx/
+                //            https://search.maven.org/search?q=g:org.jetbrains.kotlinx%20AND%20a:kotlinx-coroutines*
+                private const val version = "1.6.4"
+                const val kotlinxCoroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
+                const val kotlinxCoroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
+            }
+
+            object Serialization {
+                const val serializationJson = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1"
+                const val classPath = "org.jetbrains.kotlinx:kotlinx-serialization:1.5.21"
+            }
         }
-    }
+    } // End of JetBrains
 
     object Test {
         // INFO: https://developer.android.com/jetpack/androidx/releases/test
@@ -127,5 +139,16 @@ object Deps {
             // https://search.maven.org/artifact/junit/junit
             const val junit4 = "junit:junit:4.13.2"
         }
+    } // End of Test
+
+    object Ktor {
+        private const val version = "2.1.3"
+        const val ktorClientAndroid = "io.ktor:ktor-client-android:$version"
+        const val ktorClientCore = "io.ktor:ktor-client-core:$version"
+        const val ktorClientContentNegotiation = "io.ktor:ktor-client-content-negotiation:$version"
+        const val ktorClientLogging = "io.ktor:ktor-client-logging:$version"
+        const val ktorClientResources = "io.ktor:ktor-client-resources:$version"
+        const val ktorClientSerialization = "io.ktor:ktor-client-serialization:$version"
+        const val ktorClientSerializationJson = "io.ktor:ktor-serialization-kotlinx-json:$version"
     }
 } // End of Deps
