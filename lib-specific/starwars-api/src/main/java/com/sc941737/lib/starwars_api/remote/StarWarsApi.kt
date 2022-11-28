@@ -23,9 +23,7 @@ class StarWarsApiImpl(
     }
 
     override suspend fun fetchStarship(id: String): Starship = networkHelper.apiCall {
-        get {
-            url(urlString = "starship/$id")
-        }.body()
+        safeGet("starships/$id")
     }
 
 }
