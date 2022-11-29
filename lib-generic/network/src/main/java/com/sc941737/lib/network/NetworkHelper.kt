@@ -4,6 +4,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.plugins.ClientRequestException
 import io.ktor.client.plugins.RedirectResponseException
 import io.ktor.client.plugins.ServerResponseException
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
@@ -14,6 +15,7 @@ sealed class ResultWrapper<out T> {
     data class ServerError(val message: String) : ResultWrapper<Nothing>(), ResultError
     data class RedirectError(val message: String) : ResultWrapper<Nothing>(), ResultError
     data class UnknownError(val message: String) : ResultWrapper<Nothing>(), ResultError
+    object Ignored: ResultWrapper<Nothing>(), ResultError
 }
 
 class NetworkHelper(
@@ -34,7 +36,9 @@ class NetworkHelper(
             ResultWrapper.RequestError("Error: ${e.response.status.description}")
         } catch (e: ServerResponseException) { // 5xx
             ResultWrapper.ServerError("Error: ${e.response.status.description}")
+        } catch (e: CancellationException) {
+            ResultWrapper.Ignored
         } catch (e: Exception) {
             ResultWrapper.UnknownError("Error: ${e.message}")
         }
-    }
+}

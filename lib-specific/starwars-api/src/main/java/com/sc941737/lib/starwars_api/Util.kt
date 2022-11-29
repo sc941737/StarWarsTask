@@ -13,5 +13,6 @@ interface ResultUnwrapper {
         is ResultWrapper.RequestError -> onError?.let { it(response.message) }
         is ResultWrapper.ServerError -> onError?.let { it(response.message) }
         is ResultWrapper.UnknownError -> onError?.let { it(response.message) }
+        ResultWrapper.Ignored -> {}
     }
 }
