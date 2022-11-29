@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">StarWarsTask</string>
 
+    <string name="crew_label">Crew (%d/%d)</string>
+    <string name="passenger_label">Passengers (%d/%d)</string>
+
     <string name="screen_selection_title">Launch Selection</string>
     <string name="selection_toolbar_menu_search">Search</string>
     <string name="selection_toolbar_menu_preview">Preview</string>
@@ -12,4 +15,10 @@
     <string name="selection_item_gender">Gender %s</string>
     <string name="selection_item_btn_add_crew">+ crew member</string>
     <string name="selection_item_btn_add_passengers">+ passenger</string>
+
+    <string name="screen_preview_title">Preview Voyagers</string>
+    <string name="preview_launch_btn_content_description">Launch starship</string>
+    <string name="preview_starship_launched_event">Starship launched!</string>
+    <string name="preview_starship_duplicates_found_event">Duplicate voyagers found!</string>
+    <string name="preview_item_btn_remove">Remove</string>
 </resources>

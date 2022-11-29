@@ -6,6 +6,7 @@ import com.sc941737.lib.error.ErrorTracker
 import com.sc941737.lib.starwars_api.PeopleRepository
 import com.sc941737.lib.starwars_api.StarshipRepository
 import com.sc941737.lib.ui.launch
+import com.sc941737.lib.ui_theme.IViewOption
 import com.sc941737.starwarstask.ui.selection.UiPerson
 import com.sc941737.starwarstask.ui.selection.toUiModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +17,14 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 
-enum class TravelType { CREW, PASSENGER }
+enum class VoyagerType(override val titleStringId: Int) : IViewOption {
+    CREW(R.string.crew_label),
+    PASSENGER(R.string.passenger_label)
+    ;
+    companion object {
+        val names get() = values().map { it.name }
+    }
+}
 
 class MainViewModel(
     private val peopleRepository: PeopleRepository,
@@ -45,11 +53,19 @@ class MainViewModel(
     val searchQuery: StateFlow<String> = _searchQuery
     fun onQueryChanged(value: String) = _searchQuery.update { value }
 
-    fun onSelectPerson(uiPerson: UiPerson, group: TravelType) {
+    fun onSelectPerson(uiPerson: UiPerson, group: VoyagerType) {
         val person = people.value.find { it.id == uiPerson.fullId } ?: return
         when (group) {
-            TravelType.CREW -> starshipRepository.addCrewMember(person)
-            TravelType.PASSENGER -> starshipRepository.addPassenger(person)
+            VoyagerType.CREW -> starshipRepository.addCrewMember(person)
+            VoyagerType.PASSENGER -> starshipRepository.addPassenger(person)
+        }
+    }
+
+    fun onRemovePerson(uiPerson: UiPerson, group: VoyagerType) {
+        val person = people.value.find { it.id == uiPerson.fullId } ?: return
+        when (group) {
+            VoyagerType.CREW -> starshipRepository.removeCrewMember(person)
+            VoyagerType.PASSENGER -> starshipRepository.removePassenger(person)
         }
     }
 

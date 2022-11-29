@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,6 +18,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Group
+import androidx.compose.material.icons.filled.RocketLaunch
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -41,7 +43,7 @@ import com.sc941737.lib.ui_theme.Dimensions
 import com.sc941737.lib.ui_theme.SearchToolbar
 import com.sc941737.starwarstask.MainViewModel
 import com.sc941737.starwarstask.R
-import com.sc941737.starwarstask.TravelType
+import com.sc941737.starwarstask.VoyagerType
 import com.sc941737.starwarstask.ui.destinations.PreviewScreenDestination
 import org.koin.androidx.compose.get
 import org.koin.androidx.compose.koinViewModel
@@ -68,9 +70,13 @@ fun SelectionScreen(
         topBar = {
              SelectionScreenToolbar(
                  isSearching = isSearching,
+                 isStarshipFull = isStarshipFull,
                  searchQuery = searchQuery,
                  onSearchTermChanged = mainViewModel::onQueryChanged,
-                 onClickCancelSearch = selectionViewModel::onClickCancelSearch,
+                 onClickCancelSearch = {
+                     selectionViewModel.onClickCancelSearch()
+                     mainViewModel.onQueryChanged("")
+                 },
                  onClickSearch = selectionViewModel::onClickSearch,
                  onClickPreview = ::navigateToPreview,
              )
@@ -100,6 +106,7 @@ fun SelectionScreen(
 @Composable
 fun SelectionScreenToolbar(
     isSearching: Boolean,
+    isStarshipFull: Boolean,
     searchQuery: String,
     onSearchTermChanged: (String) -> Unit,
     onClickCancelSearch: () -> Unit,
@@ -113,6 +120,9 @@ fun SelectionScreenToolbar(
             onCancelSearchClicked = onClickCancelSearch,
         )
     } else {
+        val previewIcon =
+            if (isStarshipFull) Icons.Default.RocketLaunch
+            else Icons.Default.Group
         DefaultToolbar(
             titleRes = R.string.screen_selection_title,
             canNavigateBack = false,
@@ -126,7 +136,7 @@ fun SelectionScreenToolbar(
                 }
                 IconButton(onClick = onClickPreview) {
                     Icon(
-                        imageVector = Icons.Default.Group,
+                        imageVector = previewIcon,
                         contentDescription = stringResource(R.string.selection_toolbar_menu_preview),
                         tint = Color.White,
                     )
@@ -139,13 +149,25 @@ fun SelectionScreenToolbar(
 @Composable
 fun SelectionList(
     people: List<UiPerson>,
-    onSelectPerson: (UiPerson, TravelType) -> Unit,
+    onSelectPerson: (UiPerson, VoyagerType) -> Unit,
     contentPadding: PaddingValues = PaddingValues(0.dp),
 ) {
     LazyColumn(
         content = {
             items(items = people, key = { it.id }) {
-                SelectionItem(person = it, onClick = onSelectPerson)
+                SelectionItem(
+                    person = it,
+                    buttons = { person ->
+                        DefaultButton(
+                            text = stringResource(R.string.selection_item_btn_add_crew),
+                            modifier = Modifier.weight(1f)
+                        ) { onSelectPerson(person, VoyagerType.CREW) }
+                        DefaultButton(
+                            text = stringResource(R.string.selection_item_btn_add_passengers),
+                            modifier = Modifier.weight(1f)
+                        ) { onSelectPerson(person, VoyagerType.PASSENGER) }
+                    }
+                )
             }
         },
         contentPadding = contentPadding,
@@ -157,7 +179,7 @@ fun SelectionList(
 fun SelectionItem(
     person: UiPerson,
     context: Context = get(),
-    onClick: (UiPerson, TravelType) -> Unit,
+    buttons: @Composable RowScope.(UiPerson) -> Unit,
 ) {
     Column {
         val imageId = context.drawableId(person.imageName)
@@ -172,14 +194,7 @@ fun SelectionItem(
                 }
             }
             Row(horizontalArrangement = Arrangement.SpaceEvenly) {
-                DefaultButton(
-                    text = stringResource(R.string.selection_item_btn_add_crew),
-                    modifier = Modifier.weight(1f)
-                ) { onClick(person, TravelType.CREW) }
-                DefaultButton(
-                    text = stringResource(R.string.selection_item_btn_add_passengers),
-                    modifier = Modifier.weight(1f)
-                ) { onClick(person, TravelType.PASSENGER) }
+                buttons(person)
             }
         }
         DefaultDivider()

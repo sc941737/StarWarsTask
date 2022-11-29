@@ -39,9 +39,11 @@ interface StarshipRepository {
     fun addPassenger(person: Person)
     fun removeCrewMember(person: Person)
     fun removePassenger(person: Person)
+    fun launchStarship()
+    fun validateStarshipVoyagers(): Boolean
 }
 
-class StarshipRepositoryImpl(
+open class StarshipRepositoryImpl(
     private val networkHelper: NetworkHelper,
     private val api: StarWarsApi,
     private val errorTracker: ErrorTracker,
@@ -74,6 +76,18 @@ class StarshipRepositoryImpl(
 
     override fun removePassenger(person: Person) =
         _selectedPeople.update { it.copy(passengers = it.passengers.minus(person)) }
+
+    override fun launchStarship() {
+        _selectedPeople.update { SelectedPeople.Empty }
+    }
+
+    override fun validateStarshipVoyagers(): Boolean {
+        val selectedPeople = selectedPeople.value
+        val voyagers = selectedPeople.crew + selectedPeople.passengers
+        voyagers.ifEmpty { return false }
+        val voyagersUnique = voyagers.toSet().toList()
+        return voyagers == voyagersUnique
+    }
 
     override suspend fun fetchStarship(id: String) = executeRequest(
         block = { getStarship(id) },

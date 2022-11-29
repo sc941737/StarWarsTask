@@ -12,6 +12,8 @@ import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Tab
+import androidx.compose.material.TabRow
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TopAppBar
@@ -19,6 +21,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
@@ -28,7 +31,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import java.util.concurrent.atomic.AtomicLong
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
 
 /** Reusable composables */
 
@@ -158,5 +167,53 @@ fun debounced(
         if (timeNow - timeBefore.get() < elapsed) return@inner
         timeBefore.set(timeNow)
         block()
+    }
+}
+
+interface IViewOption {
+    @get:StringRes
+    val titleStringId: Int
+}
+
+@Composable
+fun ViewTabList(selectedViewTab: Int, viewTabs: List<IViewOption>, onSelectViewTab: (Int) -> Unit) {
+    ViewTabList(
+        selectedViewTab = selectedViewTab,
+        viewTabs = viewTabs.map { stringResource(it.titleStringId) },
+        onSelectViewTab = onSelectViewTab,
+    )
+}
+
+@JvmName("ViewTabList1")
+@Composable
+fun ViewTabList(selectedViewTab: Int, viewTabs: List<String>, onSelectViewTab: (Int) -> Unit) {
+    TabRow(
+        selectedTabIndex = selectedViewTab,
+        contentColor = MaterialTheme.colors.primary,
+        backgroundColor = MaterialTheme.colors.background,
+    ) {
+        viewTabs.forEachIndexed { index, tabTitle ->
+            Tab(
+                selected = selectedViewTab == index,
+                onClick = { onSelectViewTab(index) },
+                text = {
+                    Text(
+                        text = tabTitle.uppercase(),
+                        maxLines = 1,
+                        fontSize = 12.sp,
+                    )
+                },
+            )
+        }
+    }
+}
+
+@Composable
+fun <T> Flow<T>.collectAsEffect(
+    context: CoroutineContext = EmptyCoroutineContext,
+    block: (T) -> Unit
+) {
+    LaunchedEffect(key1 = Unit) {
+        onEach(block).flowOn(context).launchIn(this)
     }
 }

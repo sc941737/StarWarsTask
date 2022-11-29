@@ -27,4 +27,5 @@ dependencies {
     api(Deps.AndroidX.Compose.Ui.ui)
     api(Deps.AndroidX.Compose.Ui.uiTooling)
     api(Deps.AndroidX.Compose.Ui.uiToolingPreview)
+    implementation(Deps.JetBrains.KotlinX.Coroutines.kotlinxCoroutinesCore)
 }
