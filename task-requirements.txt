@@ -1,0 +1,27 @@
+android-star-wars-task rocket robot
+Brief
+You have been tasked with creating an app to organise crew and passengers for the Millennium Falcon. The app should allow a user to select both available crew members and passengers from a full list of characters within the Star Wars universe, so that they can launch to explore and protect the galaxy.
+
+Acceptance Criteria
+The user must be able to search for all characters(/people/ API) by name
+The user should be presented with a list of potential characters, who match the search term, from which they can then select for the starship
+The user must select and fill all the crew members needed to run the starship Millennium Falcon (/starships/ - "crew": "4")
+The user must select and fill all the passengers that can travel on the starship Millennium Falcon (/starships/ - "passengers": "6")
+The user must NOT be able to select more crew members or passengers than the starship Millennium Falcon has capacity for
+There must be no duplicate characters
+The user must be able to see which characters they have already selected
+For each selected character, the user must be able to see their name, an avatar image, gender and their birth year (as a minimum)
+Only When a user has selected all the characters which fulfil the above criteria, can they launch the starship and explore the galaxy
+Once launched the entire selection process should reset
+Task
+Using the above AC, you should use the Star Wars REST API (SWAPI) at https://swapi.dev and create an app that can search the characters within the universe https://swapi.dev/api/people/?search=. This app should have the the ability to select the crew members and passengers (/people/) to help run the Millennium Falcon http://swapi.dev/api/starships/10/.
+
+As the character avatar images are not available from the API, to save time you can download them here.
+
+Requirements & Constraints
+Your appliction should be written in Kotlin
+Do all your work in a new local Git Repository - git init NOT a public GitHub repo
+Commit your code in small working increments to illustrate progression and good agile practices working within a team. Please make sure you include the git log as part of your submission.
+Where necessary, please provide any extra information or instructions - thinking can be more important than the actual implementation.
+Please spend no more than 6 hours on your implementation for the task
+Your solution should prioritise maintainability as well as robustness, and demonstrate your approach to writing software
